@@ -68,7 +68,7 @@
                 <h3>Module erstellen</h3>
                 <p>
                     Die Veranstaltungen können in beliebiger Form aus der Datenbank geholt werden.
-                    Im Order Module finden Sie dafür 2 Beispiele.
+                    Im Order &quot;examples&quot; finden Sie dafür 2 Beispiele.
                     Mit einem Modul können Sie die Veranstaltungen für ein bestimmtes  Jahr ausgeben.
                     Weiter finden Sie ein Modul, um die kommenden Veranstaltungen für die nächsten 1-6 Monate anzuzeigen.
                     Dabei werden für eine Veranstaltung nur noch die Termine angezeigt, die noch nicht vorbei sind.
