@@ -24,7 +24,7 @@
 
     # calling system within local environments may not find the environment mysql files
     # using MAMP on max OSX
-    $this->setProperty('mysqldump', '/Applications/MAMP/Library/bin/mysqldump');
+    # $this->setProperty('mysqldump', '/Applications/MAMP/Library/bin/mysqldump');
     # default
-    # $this->setProperty('mysqldump', 'mysqldump');
+    $this->setProperty('mysqldump', 'mysqldump');
 
