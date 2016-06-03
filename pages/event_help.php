@@ -62,6 +62,7 @@
                     Unter dem Link <a href="<?php echo rex_be_controller::getPageObject('myevents/event_add')->getHref()?>">MyEvents Neuer Event</a> kann man neue Veranstaltungen anlegen. Dorthin gelangt man auch, wenn man eine Veranstaltung aus der Liste bearbeiten möchte.
                     Dann kann man diese entweder als neue Veranstaltung anlegen, oder die Veränderungen speichern.
                 </p>
+                <p>Die Liste der Termine wird im Format &quot;dd.mm&quot; durch Komma getrennt eingegeben: <i>15.3, 17.3, 6.4</i></p>
             </div>
 
             <div class="myevents-chapter">

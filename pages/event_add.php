@@ -255,7 +255,7 @@
                         </dt>
                         <dd>
                             <input class="form-control" type="text" name="myevents_dates" value="<?php echo str_replace(",", ", ", $myevents_dates)?>" >
-                            <p class="help-block rex-note">Format dd.mm, Kommasepariert</p>
+                            <p class="help-block rex-note">Format dd.mm, Kommasepariert (15.3, 17.3, 6.4)</p>
                         </dd>
                     </dl>
                     <dl class="rex-form-group form-group">
