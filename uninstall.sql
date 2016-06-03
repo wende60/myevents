@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS `%TABLE_PREFIX%myevents_dates`;
+DROP TABLE IF EXISTS `%TABLE_PREFIX%myevents_content`;

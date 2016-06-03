@@ -1,0 +1,16 @@
+package: myevents
+version: '2.0.0'
+author: Joachim Wendenburg
+
+page:
+    title: 'MyEvents'
+    perm: myevents[]
+    subpages:
+        event_list: { title: 'MyEvents Event Liste' }
+        event_add: { title: 'MyEvents Neuer Event' }
+        event_help: { title: 'MyEvents Hilfe' }
+
+requires:
+    redaxo: '~5.1'
+    packages:
+        textile: '^2.0.0'

@@ -1,0 +1,106 @@
+    /**
+     * Addon MyEvents
+     * @author  kgde@wendenburg.de
+     * @package redaxo 5
+     * @version $Id: myevent.css, v 2.0.0
+     */
+
+    /* --------------------------------------
+    // event_list
+    -------------------------------------- */
+    .myevents-list-wrapper ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .myevents-list-wrapper li {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 10px 0;
+        overflow: hidden;
+        zoom: 1;
+        border-bottom: 1px dotted #a2a2a2;
+    }
+
+    .myevents-list-wrapper li h3 {
+        padding: 0 0 10px 0;
+        margin: 0;
+    }
+
+    .myevents-list-wrapper li p {
+        padding: 0 0 5px 0;
+    }
+
+    .myevents-list-wrapper .myevents-edit-link {
+        font-size: 12px;
+        margin-right: 20px;
+        font-weight: bold;
+    }
+
+    .myevents-list-wrapper .myevents-delete-link {
+        font-size: 12px;
+        color: red;
+        font-weight: bold;
+    }
+
+
+    select.myevents-time {
+        width: auto;
+        display: inline-block;
+    }
+
+
+
+
+    /* --------------------------------------
+    // event_add
+    -------------------------------------- */
+    .myevents-language-wrapper {
+        display: block;
+        padding: 25px 0 0 0;
+        margin: 15px 0 15px 0;
+        border-top: 1px solid #3bb594;
+    }
+
+
+    /* --------------------------------------
+    // event_help
+    -------------------------------------- */
+    .myevents-chapter .myevents-example {
+        background: #f5f5f5;
+        padding: 20px;
+        margin: 20px 0 20px 0;
+        border: 1px solid #cccccc;
+    }
+
+    .myevents-chapter .myevents-example .myevent-dates {
+        font-size: 12px;
+        font-style: italic;
+        color: #4b9ad9;
+    }
+
+
+
+    /* --------------------------------------
+    // module backend
+    -------------------------------------- */
+    .myevents-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .myevents-wrapper {
+        background: #f5f5f5;
+        padding: 20px;
+        margin: 20px 0 20px 0;
+        border: 1px solid #cccccc;
+        list-style: none;
+    }
+
+    .myevents-wrapper .myevent-dates {
+        font-size: 12px;
+        font-style: italic;
+        color: #4b9ad9;
+    }
