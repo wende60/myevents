@@ -4,7 +4,7 @@
      * Addon MyEvents
      * @author  kgde@wendenburg.de
      * @package redaxo 5
-     * @version $Id: myEvents.php, v 2.0.0
+     * @version $Id: myEvents.php, v 2.1.0
      */
     class myEvents {
 

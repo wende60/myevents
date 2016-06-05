@@ -1,5 +1,11 @@
 <?php
 
+    /**
+     * Addon MyEvents
+     * @author  kgde@wendenburg.de
+     * @package redaxo 5
+     * @version $Id: events_help.php, v 2.1.0
+     */
     $myevents_error     =  [];
     $myevents_message   =  [];
 

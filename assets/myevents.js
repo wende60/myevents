@@ -1,3 +1,9 @@
+/**
+ * Addon MyEvents
+ * @author  kgde@wendenburg.de
+ * @package redaxo 5
+ * @version $Id: myevent.js, v 2.1.0
+ */
 
 "use strict";
 
