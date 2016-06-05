@@ -6,13 +6,6 @@
     $myevents_enddate   =  false;
     $complete           =  false;
 
-    # use current or selected year
-    $myevents_year      =  (int)htmlspecialchars(rex_request('myevents_year', 'string'));
-    $current_year       =  (int)date("Y");
-    if (!$myevents_year || $myevents_year === 0) {
-        $myevents_year  =  $current_year;
-    }
-
     # prepare some request vars
     $func               =  strip_tags(rex_request('func', 'string'));
     $myevents_dates     =  strip_tags(rex_request('myevents_dates', 'string'));
@@ -49,39 +42,21 @@
             array_push($myevents_error, 'Bitte Termine eingeben!');
         } else {
 
-            # replace whitespaces
-            $myevents_dates =  str_replace(" ", "", $myevents_dates);
-
-            # check dates formatting
-            if (!preg_match("#^([0-9]{1,2}\.[0-9]{1,2}\,?\s?)+$#", $myevents_dates)) {
-
-                array_push($myevents_error, 'Bitte überprüfen Sie die Termine, Format ist dd.mm durch Komma getrenn!');
-
-            } else {
-
-                # split comma-separated date-string into date-pieces
-                # loop and get ´day and month of each date
-                $event_dates =  explode(",", $myevents_dates);
-                foreach($event_dates as $event_date) {
-
-                    # do nothin if piece is empty (tailing comma...?)
-                    if ($event_date === "") {
-                        continue;
-                    }
-                    # get day and month from each piece
-                    # create Unix-Timestamp with which we continue working
-                    $day    =  (int)substr($event_date, 0, strpos($event_date, "."));
-                    $mon    =  (int)substr($event_date, strpos($event_date, ".") +1);
-                    array_push($myevents_times, mktime ($myevents_hour, $myevents_min, 0, $mon, $day, $myevents_year));
-
-                }
-                # order dates
-                sort($myevents_times);
-
-                # get first and last date of all event-dates and create mysql timestamp
-                $myevents_startdate  =  date("Y-m-d", $myevents_times[0]);
-                $myevents_enddate    =  date("Y-m-d", $myevents_times[count($myevents_times) -1]);
+            $event_timestrings =  explode(",", $myevents_dates);
+            foreach($event_timestrings as $event_timestring) {
+                $time   =  trim($event_timestring/1000);
+                $day    =  date('j', $time);
+                $mon    =  date('m', $time);
+                $year   =  date('Y', $time);
+                array_push($myevents_times, mktime ($myevents_hour, $myevents_min, 0, $mon, $day, $year));
             }
+            # order dates
+            sort($myevents_times);
+
+            # get first and last date of all event-dates and create mysql timestamp
+            $myevents_startdate  =  date("Y-m-d", $myevents_times[0]);
+            $myevents_enddate    =  date("Y-m-d", $myevents_times[count($myevents_times) -1]);
+
         }
         # do we have a title for each language?
         foreach(rex_clang::getAll() as $langKey => $langObj) {
@@ -150,7 +125,6 @@
                 array_push($myevents_error, 'DB-Fehler ' . $sql_dates->getError());
             }
 
-
             #jep! all done
             if (!count($myevents_error)) {
                 $complete =  true;
@@ -165,32 +139,25 @@
         $sql = rex_sql::factory();
         $sql->setQuery( "select * from `" . $this->getProperty('table_dates') . "` a left join `" . $this->getProperty('table_content') . "` b on a.id = b.event_id where a.id = " . $myevents_id );
 
-        # echo "select * from `" . $this->getProperty('table_dates') . "` a left join `" . $this->getProperty('table_content') . "` b on a.id = b.event_id where a.id = " . $myevents_id;
-
         if ($sql->getRows() > 0 ) {
 
             $myevents_dates =  "";
-            $myevents_year  =  "";
-
-            # loop rows
             for ($i = 1; $i <= $sql->getRows(); $i++) {
 
                 # we need to get this from the first row only
                 if (!$myevents_dates) {
 
-                    # turn Unix-Timestamps-string into parts
                     $myevents_times     =  explode(",", $sql->getValue('dates'));
+                    foreach($myevents_times as $key => $time) {
 
-                    foreach($myevents_times as $time) {
-
-                        # we need to get this from the first date of all dates only
-                        if (!$myevents_year) {
-                            $myevents_year  =  (int)date("Y", $time);
+                        // get hour and minutes in the first loop
+                        if ($key === 0) {
                             $myevents_hour  =  (int)date("G", $time);
                             $myevents_min   =  (int)date("i", $time);
                         }
-                        # create dates string
-                        $myevents_dates .= ($myevents_dates? "," : "") . date("d.m", $time);
+                        // create timestamps without hour and minutes for datepicker date selection
+                        $myevents_dates .= ($myevents_dates? "," : "") .
+                                            mktime(0, 0, 0, date("m", $time), date("j", $time), date("Y", $time)) * 1000;
                     }
                 }
 
@@ -230,62 +197,55 @@
         <input type="hidden" name="func" value="is_send" />
         <div class="panel panel-edit">
             <header class="panel-heading">
-                    Event für <?php echo $myevents_year?> in <?php echo implode(", ", $myevents_languages) ?> anlegen oder verändern
+                Event in <?php echo implode(", ", $myevents_languages) ?> anlegen oder verändern
             </header>
             <div class="panel-body">
                 <fieldset>
                     <dl class="rex-form-group form-group">
                         <dt>
-                            <label class="control-label">Jahr der aktuellen Veranstaltung</label>
+                            <label class="control-label">Termine und Uhrzeit</label>
                         </dt>
                         <dd>
-                            <select class="form-control" name="myevents_year">
-                                <?php
-                                    for($year = $current_year -1; $year < $current_year +6; $year ++) {
-                                        $selected =  ($year === $myevents_year)? "selected" : "";
-                                ?>
-                                    <option value="<?php echo $year?>" <?php echo $selected?>><?php echo $year?></option>
-                                <?php } ?>
-                            </select>
-                        </dd>
-                    </dl>
-                    <dl class="rex-form-group form-group">
-                        <dt>
-                            <label class="control-label">Termine</label>
-                        </dt>
-                        <dd>
-                            <input class="form-control" type="text" name="myevents_dates" value="<?php echo str_replace(",", ", ", $myevents_dates)?>" >
-                            <p class="help-block rex-note">Format dd.mm, Kommasepariert (15.3, 17.3, 6.4)</p>
-                        </dd>
-                    </dl>
-                    <dl class="rex-form-group form-group">
-                        <dt>
-                            <label class="control-label">Uhrzeit</label>
-                        </dt>
-                        <dd>
-                            <select class="form-control myevents-time" name="myevents_hour">
-                                <?php
-                                    for($hour = 0; $hour < 24; $hour ++) {
-                                        $selected =  ($hour === $myevents_hour)? "selected" : "";
-                                ?>
-                                    <option value="<?php echo $hour?>" <?php echo $selected?>><?php echo ($hour < 10)? "0" . $hour : $hour ?></option>
-                                <?php } ?>
-                            </select> :
-                            <select class="form-control myevents-time" name="myevents_min">
-                                <?php
-                                    for($min = 0; $min < 60; $min += 5) {
-                                        $selected =  ($min === $myevents_min)? "selected" : "";
-                                ?>
-                                    <option value="<?php echo $min?>" <?php echo $selected?>><?php echo ($min < 10)? "0" . $min : $min ?></option>
-                                <?php } ?>
-                            </select> Uhr
-                        </dd>
-                    </dl>
-                    <dl class="rex-form-group form-group">
-                        <dt></dt>
-                        <dd>
-                            <input id="myevents-dpltime-ck" type="checkbox" name="myevents_dpltime" value="1" <?php if ($myevents_dpltime === 1):?>checked<?php endif?> >
-                            <label for="myevents-dpltime-ck">Uhrzeit anzeigen</label>
+                            <div class="myevents-datepicker-wrapper" style="display:inline-block">
+                                <input id="myevents-dates-entry" type="hidden" name="myevents_dates" value="<?php echo $myevents_dates?>" >
+                                <div id="myEventsDatepicker"></div>
+                            </div>
+                            <div class="myevents-time-wrapper">
+                                <div>
+                                    <select class="form-control myevents-time" name="myevents_hour">
+                                        <?php
+                                            for($hour = 0; $hour < 24; $hour ++) {
+                                                $selected =  ($hour === $myevents_hour)? "selected" : "";
+                                        ?>
+                                            <option value="<?php echo $hour?>" <?php echo $selected?>><?php echo ($hour < 10)? "0" . $hour : $hour ?></option>
+                                        <?php } ?>
+                                    </select> :
+                                    <select class="form-control myevents-time" name="myevents_min">
+                                        <?php
+                                            for($min = 0; $min < 60; $min += 5) {
+                                                $selected =  ($min === $myevents_min)? "selected" : "";
+                                        ?>
+                                            <option value="<?php echo $min?>" <?php echo $selected?>><?php echo ($min < 10)? "0" . $min : $min ?></option>
+                                        <?php } ?>
+                                    </select> Uhr
+                                </div>
+                                <div>
+                                    <input id="myevents-dpltime-ck" type="checkbox" name="myevents_dpltime" value="1" <?php if ($myevents_dpltime === 1):?>checked<?php endif?> >
+                                    <label for="myevents-dpltime-ck">Uhrzeit anzeigen</label>
+                                </div>
+                                <div class="myevents-display-dates">
+                                    <h5>Ausgewählte Termine</h5>
+                                    <ul id="myevents-dates-list"></ul>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                myEventsDatepicker.init({});
+                                myEventsDatepicker.createCalendar('myEventsDatepicker', {
+                                    onlyFuture: 0,
+                                    eventEntry: 'myevents-dates-entry',
+                                    eventList: 'myevents-dates-list'
+                                });
+                            </script>
                         </dd>
                     </dl>
                 </fieldset>

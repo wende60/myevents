@@ -20,6 +20,7 @@
 
     if (rex::isBackend() && rex::getUser()) {
         rex_view::addCssFile($this->getAssetsUrl('myevents.css'));
+        rex_view::addJsFile($this->getAssetsUrl('myevents.js'));
     }
 
     # calling system within local environments may not find the environment mysql files

@@ -4,25 +4,25 @@
     $myevents_message   =  [];
 
     # use current or selected year
-    $current_year       =  (int)date("Y");
-    $myevents_year      =  (int)htmlspecialchars(rex_request('myevents_year', 'string'));
-    if(!$myevents_year || $myevents_year === 0) {
-        $myevents_year  =  $current_year;
+    $myeventsCurrentYear       =  (int)date("Y");
+    $myeventsSelectedYear      =  (int)htmlspecialchars(rex_request('myevents_year', 'string'));
+    if (!$myeventsSelectedYear || $myeventsSelectedYear === 0) {
+        $myeventsSelectedYear  =  $myeventsCurrentYear;
     }
 
     # prepare some request vars
     $func               =  strip_tags(rex_request('func', 'string'));
 
     # create mysql timestamps to get events by it's startdate
-    $myevents_startdate =  ($myevents_year) . "-01-01";
-    $myevents_enddate   =  ($myevents_year) . "-12-31";
+    $myevents_startdate =  ($myeventsSelectedYear) . "-01-01";
+    $myevents_enddate   =  ($myeventsSelectedYear) . "-12-31";
 
     # display month-names as string
     $month_names        =  $this->getProperty('month_names');
 
-    if($func == "do_delete") {
+    if ($func == "do_delete") {
         $myevents_id    =  htmlspecialchars(rex_request('myevents_id', 'string'));
-        if($myevents_id && is_numeric($myevents_id)) {
+        if ($myevents_id && is_numeric($myevents_id)) {
             $sql_dates  =  rex_sql::factory();
             //echo "delete `" . $table_dates . "`,`" . $table_content . "` from `" . $table_dates . "`, `" . $table_content . "` where `" . $table_dates . ".id` = `" . $table_content . ".event_id` and `" . $table_dates . ".id` = " . $myevents_id;
             $sql_dates->setQuery(
@@ -37,7 +37,7 @@
 
             if ($sql_dates->getRows() > 0 ) {
                 array_push($myevents_message, 'Event ID' . $myevents_id . ': ' . $sql_dates->getRows() . '  Zeilen gelöscht!');
-            } elseif($sql_dates->error) {
+            } elseif ($sql_dates->error) {
                 array_push($myevents_error, 'DB-Fehler ' . $sql_dates->getError());
             }
         }
@@ -60,33 +60,46 @@
         # loop rows
         for ($i = 1; $i <= $sql_dates->getRows(); $i++) {
 
-            $myevents_dates =  "";
-            $myevents_hour  =  false;
-            $myevents_min   =  false;
-            $myevents_mon   =  false;
+            $myevents_dates     =  '';
+            $myevents_hour      =  false;
+            $myevents_min       =  false;
+            $myevents_month       =  false;
+            $past_event_month   =  false;
+            $past_event_year    =  false;
 
             # turn Unix-Timestamps-string into parts
             $myevents_times =  explode(",", $sql_dates->getValue('dates'));
             foreach($myevents_times as $time) {
 
                 # these data we need to get only once
-                if(!$myevents_hour) {
+                if (!$myevents_hour) {
                     $myevents_hour  =  date("G", $time);
                     $myevents_min   =  date("i", $time);
                 }
                 # create dates string with month names
-                $month_key =  ((int)date("n", $time) -1);
+                $myevents_month =  ((int)date("n", $time) -1);
+                $myevents_date  =  date("d", $time);
+                $myevents_year  =  date("Y", $time);
 
-                if($myevents_mon !== $month_key) {
-                    $myevents_dates .= (strlen($myevents_dates)? " und " : "") . $month_names[$month_key] . " " . date("d", $time);
-                    $myevents_mon =  $month_key;
+                if ($myevents_year !== $past_event_year) {
+                    $myevents_dates .= (strlen($myevents_dates)? ' und ' : '') .
+                                        $myevents_year . ' - ' .
+                                        $month_names[$myevents_month] . ' ' .
+                                        $myevents_date;
+                } elseif ($myevents_month !== $past_event_month) {
+                    $myevents_dates .= (strlen($myevents_dates)? ' und ' : '') .
+                                        $month_names[$myevents_month] . ' ' .
+                                        $myevents_date;
                 } else {
                     $myevents_dates .= ", " . date("d", $time);
                 }
+
+                $past_event_month   =  $myevents_month;
+                $past_event_year    =  $myevents_year;
             }
 
             $myevents_list[$sql_dates->getValue('id')] =  array(
-                'myevents_dates'  =>  $myevents_year . " - " . $myevents_dates,
+                'myevents_dates'  =>  $myevents_dates,
                 'myevents_times'  =>  $myevents_times,
                 'myevents_hour'   =>  $myevents_hour,
                 'myevents_min'    =>  $myevents_min,
@@ -96,7 +109,7 @@
         }
 
     } else {
-        array_push($myevents_error, 'Keine Veranstaltungen im Jahr ' . $myevents_year . ' gefunden!');
+        array_push($myevents_error, 'Keine Veranstaltungen im Jahr ' . $myeventsSelectedYear . ' gefunden!');
         $myevents_id = false;
     }
 
@@ -104,21 +117,21 @@
 <div>
     <?php
         # we need textile to format descriptions
-        if( !rex_addon::get('textile')->isAvailable() ) {
+        if ( !rex_addon::get('textile')->isAvailable() ) {
             echo rex_view::warning('Dieses Modul benötigt das "textile" Addon!');
         }
         # errors or confirm
         if (count($myevents_error)) {
             echo rex_view::error( implode('<br>', $myevents_error)  );
         }
-        if(count($myevents_message)) {
+        if (count($myevents_message)) {
             echo rex_view::info( implode('<br>', $myevents_message) );
         }
     ?>
     <form action="<?php echo rex_url::currentBackendPage()?>" method="post" class="rex-form">
         <div class="panel panel-edit">
             <header class="panel-heading">
-                Alle Events in <?php echo $myevents_year?>
+                Alle Events in <?php echo $myeventsSelectedYear?>
             </header>
             <div class="panel-body">
                 <fieldset>
@@ -129,8 +142,8 @@
                         <dd>
                             <select class="form-control" name="myevents_year">
                                 <?php
-                                    for($year = $current_year -1; $year < $current_year +6; $year ++) {
-                                        $selected =  ($year === $myevents_year)? "selected" : "";
+                                    for($year = $myeventsCurrentYear -1; $year < $myeventsCurrentYear +6; $year ++) {
+                                        $selected =  ($year === $myeventsSelectedYear)? "selected" : "";
                                 ?>
                                     <option value="<?php echo $year?>" <?php echo $selected?>><?php echo $year?></option>
                                 <?php } ?>
@@ -166,7 +179,7 @@
                         <a class="myevents-edit-link" href="<?php echo rex_be_controller::getPageObject('myevents/event_add')->getHref()?>&myevents_id=<?php echo $myevents_id?>">
                             <span>[Event ID <?php echo $myevents_id?> bearbeiten]</span>
                         </a>
-                        <a class="myevents-delete-link" href="<?php echo rex_url::currentBackendPage()?>&func=do_delete&myevents_id=<?php echo $myevents_id?>&myevents_year=<?php echo $myevents_year?>" onclick="return confirm('Termin ID <?php echo $myevents_id?> löschen?')">
+                        <a class="myevents-delete-link" href="<?php echo rex_url::currentBackendPage()?>&func=do_delete&myevents_id=<?php echo $myevents_id?>&myevents_year=<?php echo $myeventsSelectedYear?>" onclick="return confirm('Termin ID <?php echo $myevents_id?> löschen?')">
                             <span>[Event ID <?php echo $myevents_id?> löschen]</span>
                         </a>
                     </p>

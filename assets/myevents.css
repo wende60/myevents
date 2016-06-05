@@ -44,7 +44,6 @@
         font-weight: bold;
     }
 
-
     select.myevents-time {
         width: auto;
         display: inline-block;
@@ -56,6 +55,10 @@
     /* --------------------------------------
     // event_add
     -------------------------------------- */
+    .myevents-time-wrapper div {
+        padding: 0 0 10px 0;
+    }
+
     .myevents-language-wrapper {
         display: block;
         padding: 25px 0 0 0;
@@ -81,6 +84,87 @@
     }
 
 
+    /* --------------------------------------
+    // myEventsDatepicker
+    -------------------------------------- */
+    .myevents-datepicker-wrapper,
+    .myevents-time-wrapper {
+        display: inline-block;
+        min-width: 49%;
+        vertical-align: top;
+        margin: 0 0 20px 0;
+    }
+
+    .myevents-time-wrapper {
+        padding: 0 20px 0 20px;
+    }
+
+    #myEventsDatepicker {
+    }
+
+    .myevents-datepicker-wrapper table {
+        border-collapse: collapse;
+        background: none;
+    }
+
+    .myevents-datepicker-wrapper thead {
+        border: 1px solid #3bb594;
+        border-collapse: collapse;
+    }
+
+    .myevents-datepicker-wrapper td {
+        border: 1px solid #3bb594;
+        border-collapse: collapse;
+        padding: 10px;
+        text-align: right;
+        color: black;
+        margin: 0;
+    }
+
+    .myevents-datepicker-wrapper th {
+        border-collapse: collapse;
+        padding: 20px 10px 20px 10px;
+        text-align: center;
+        color: black;
+        margin: 0;
+        background: none;
+    }
+
+    .myevents-datepicker-wrapper .calendarIsWeekend {
+        background: #ffffff;
+    }
+
+    .myevents-datepicker-wrapper .calendarIsActive {
+        cursor: pointer;
+    }
+
+    .myevents-datepicker-wrapper .calendarIsToday {
+        color: red;
+    }
+
+    .myevents-datepicker-wrapper .calendarIsEvent {
+        background: red;
+        color: #ffffff;
+    }
+
+    .myevents-datepicker-wrapper .calendarIsOtherMonth {
+        opacity: 0.1;
+    }
+
+    .myevents-display-dates {
+        padding: 20px 0 20px 0;
+    }
+
+    .myevents-display-dates ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .myevents-display-dates li {
+        padding: 3px 0 3px 0;
+        list-style: none;
+    }
 
     /* --------------------------------------
     // module backend

@@ -20,7 +20,7 @@
 
     <label>Anzahl Veranstaltungen:</label>
     <div class="entry-wrapper">
-        <select name="REX_INPUT_VALUE[1]">
+        <select class="form-control" name="REX_INPUT_VALUE[1]">
             <option value="">Alle Veranstaltungen</option>
             <?php
                 for($i = 1; $i < 11; $i ++):
@@ -36,7 +36,7 @@
 
     <label>Zeitraum in Monaten:</label>
     <div class="entry-wrapper">
-        <select name="REX_INPUT_VALUE[2]">
+        <select class="form-control" name="REX_INPUT_VALUE[2]">
             <?php
                 for($j = 1; $j < 7; $j ++):
                     $selected =  "";
@@ -96,7 +96,10 @@
         # ordered by startdate
         # --------------------------------
         $sql =  rex_sql::factory();
-        $sql->setQuery( "select * from `" . $tableDates . "` a left join `" . $tableContent . "` b on a.id = b.event_id where (a.enddate > \"" . $myeventsStartDate . "\" and a.startdate < \"" . $myeventsEndDate . "\") and b.clang = " . $languageId . " order by a.startdate");
+        $sql->setQuery( "select * from `" . $tableDates . "` " .
+                "a left join `" . $tableContent . "` b on a.id = b.event_id " .
+                "where (a.enddate > \"" . $myeventsStartDate . "\" and a.startdate < \"" . $myeventsEndDate . "\") " .
+                "and b.clang = " . $languageId . " order by a.startdate");
 
         if ($sql->getRows() > 0 ) {
 
