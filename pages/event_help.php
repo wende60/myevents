@@ -1,5 +1,11 @@
 <?php
 
+    /**
+     * Addon MyEvents
+     * @author  kgde@wendenburg.de
+     * @package redaxo 5
+     * @version $Id: events_help.php, v 2.1.0
+     */
     $myevents_error     =  [];
     $myevents_message   =  [];
 
@@ -62,7 +68,6 @@
                     Unter dem Link <a href="<?php echo rex_be_controller::getPageObject('myevents/event_add')->getHref()?>">MyEvents Neuer Event</a> kann man neue Veranstaltungen anlegen. Dorthin gelangt man auch, wenn man eine Veranstaltung aus der Liste bearbeiten möchte.
                     Dann kann man diese entweder als neue Veranstaltung anlegen, oder die Veränderungen speichern.
                 </p>
-                <p>Die Liste der Termine wird im Format &quot;dd.mm&quot; durch Komma getrennt eingegeben: <i>15.3, 17.3, 6.4</i></p>
             </div>
 
             <div class="myevents-chapter">
@@ -88,7 +93,7 @@
                 </p>
                 <p><i><?php echo rex_path::addonData('myevents') . "sqldump"?></i></p>
                 <p>
-                    Diese können Sie über FTP herunterladen und z.B per phpMyAdmin wieder importieren.
+                    Diese können Sie über FTP herunterladen und z.B per phpMyAdmin via SQL Eingabefeld wieder importieren.
                     Bei Fehlermeldung können Sie das Backup natürlich ebenso über den Export von phpMyAdmin oder die Console machen.
                 </p>
                 <p><a href="<?php echo rex_url::currentBackendPage()?>&func=do_bak">Jetzt ein Backup erstellen</a></p>

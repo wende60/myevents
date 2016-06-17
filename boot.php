@@ -1,5 +1,11 @@
 <?php
 
+    /**
+     * Addon MyEvents
+     * @author  kgde@wendenburg.de
+     * @package redaxo 5
+     * @version $Id: boot.php, v 2.1.0
+     */
     $this->setProperty('table_dates', rex::getTablePrefix() . $this->getProperty('package') . "_dates");
     $this->setProperty('table_content', rex::getTablePrefix() . $this->getProperty('package') . "_content");
 
@@ -20,6 +26,7 @@
 
     if (rex::isBackend() && rex::getUser()) {
         rex_view::addCssFile($this->getAssetsUrl('myevents.css'));
+        rex_view::addJsFile($this->getAssetsUrl('myevents.js'));
     }
 
     # calling system within local environments may not find the environment mysql files

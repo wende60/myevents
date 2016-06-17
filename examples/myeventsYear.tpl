@@ -15,10 +15,10 @@
 
     if (rex_addon::get('textile')->isAvailable()) {
 
-        $currentYear    =  date("Y");
-        $myeventsYear   =  (int)"REX_VALUE[1]";
-        if (!$myeventsYear) {
-            $myeventsYear =  $currentYear;
+        $myeventsCurrentYear    =  date("Y");
+        $myeventsSelectedYear   =  (int)"REX_VALUE[1]";
+        if (!$myeventsSelectedYear) {
+            $myeventsSelectedYear =  $myeventsCurrentYear;
         }
 
 ?>
@@ -26,11 +26,11 @@
 
     <label>Alle Veranstaltungen im Jahr:</label>
     <div class="entry-wrapper">
-        <select name="REX_INPUT_VALUE[1]">
+        <select class="form-control" name="REX_INPUT_VALUE[1]">
             <?php
-                for($year = $currentYear -5; $year < $currentYear +10; $year ++) {
+                for($year = $myeventsCurrentYear -5; $year < $myeventsCurrentYear +10; $year ++) {
                     $selected =  "";
-                    if((int)$year === (int)$myeventsYear) {
+                    if((int)$year === (int)$myeventsSelectedYear) {
                         $selected =  "selected=\"selected\"";
                     }
                 ?>
@@ -51,15 +51,15 @@
     $languageId =  rex_clang::getCurrentId();
     if (rex_addon::get('textile')->isAvailable()) {
 
-        $myeventsList       =  array();
-        $tableDates         =  rex_addon::get('myevents')->getProperty('table_dates');
-        $tableContent       =  rex_addon::get('myevents')->getProperty('table_content');
+        $myeventsList           =  array();
+        $tableDates             =  rex_addon::get('myevents')->getProperty('table_dates');
+        $tableContent           =  rex_addon::get('myevents')->getProperty('table_content');
 
-        $myeventsYear       =  (int)"REX_VALUE[1]";
+        $myeventsSelectedYear   =  (int)"REX_VALUE[1]";
 
         # create mysql timestamps to get events by it's startdate
-        $myeventsStartdate  =  ($myeventsYear -1) . "-12-31";
-        $myeventsEnddate    =  ($myeventsYear +1) . "-01-01";
+        $myeventsStartdate      =  ($myeventsSelectedYear -1) . "-12-31";
+        $myeventsEnddate        =  ($myeventsSelectedYear +1) . "-01-01";
 
         # display month-names as string
         $monthNames =  array(
@@ -76,11 +76,16 @@
         );
 
         # --------------------------------
-        # load data from given year
-        # ordered by startdate
+        # load data if start or end is
+        # within selected year
+        # order by startdate
         # --------------------------------
         $sql =  rex_sql::factory();
-        $sql->setQuery( "select * from `" . $tableDates . "` a left join `" . $tableContent . "` b on a.id = b.event_id where a.startdate between \"" . $myeventsStartdate . "\" and \"" . $myeventsEnddate . "\" and b.clang = " . $languageId . " order by a.startdate");
+        $sql->setQuery( "select * from `" . $tableDates . "` " .
+                "a left join `" . $tableContent . "` b on a.id = b.event_id " .
+                "where (a.startdate between \"" . $myeventsStartdate . "\" and \"" . $myeventsEnddate . "\" ".
+                "or a.enddate between \"" . $myeventsStartdate . "\" and \"" . $myeventsEnddate . "\") ".
+                "and b.clang = " . $languageId . " order by a.startdate");
 
         if ($sql->getRows() > 0 ) {
 
@@ -102,15 +107,20 @@
                     if($myeventsHour === false) {
                         $myeventsHour       =  date("G", $time);
                         $myeventsMinute     =  date("i", $time);
-                        $myeventsYear       =  date("Y", $time);
                         $myeventsTimeString =  date($timeFormat[$languageId], $time);
+                    }
+
+                    # this event date is an other year than the selected one, ignore
+                    $myeventsYear =  date("Y", $time);
+                    if ($myeventsYear !== $myeventsSelectedYear) {
+                        continue;
                     }
 
                     # store days again in an array, month-index is the key
                     # we might ignore here some dates of myeventsTimes
                     # cause they are in the past already...
                     # so it is easier to format later
-                    $monthIndex                         =  ((int)date("n", $time) -1);
+                    $monthIndex =  ((int)date("n", $time) -1);
                     $myeventsDatesArray[$monthIndex][]  =  date("d", $time);
                 }
 

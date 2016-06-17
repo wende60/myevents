@@ -4,9 +4,8 @@
      * Addon MyEvents
      * @author  kgde@wendenburg.de
      * @package redaxo 5
-     * @version $Id: index.php, v 2.0.0
+     * @version $Id: index.php, v 2.1.0
      */
-
 
     // create title and tabs
     echo rex_view::title($this->i18n('title'));
