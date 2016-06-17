@@ -1,5 +1,5 @@
-## Was macht MyEvents? ##
-=========================
+REDAXO-AddOn: MyEvents
+=======================
 
 Mit MyEvents lassen sich mehrsprachig Veranstaltungen mit einem oder mehreren Terminen einpflegen oder modifizieren.
 Die einzelnen Termine einer Veranstaltung werden per Klick auf einen Datepicker angelegt oder wieder entfernt.
@@ -27,5 +27,5 @@ Die Veranstaltungen können in beliebiger Form aus der Datenbank geholt werden.
 Im Order &quot;examples&quot; findest Du dafür 2 Beispielmodule, die mehrsprachig für deutsch und englisch angelegt sind.
 Mit einem Modul kannst Du die Veranstaltungen für ein bestimmtes  Jahr ausgeben.
 Weiter findest Du ein Modul, um die kommenden Veranstaltungen für die nächsten 1-6 Monate anzuzeigen.
-Dabei werden für eine Veranstaltung nur noch die Termine angezeigt, die noch nicht in der Vergangenjeit liegen.
+Dabei werden für eine Veranstaltung nur noch die Termine angezeigt, die noch nicht in der Vergangenheit liegen.
 
