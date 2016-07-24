@@ -4,7 +4,7 @@
      * Addon MyEvents
      * @author  kgde@wendenburg.de
      * @package redaxo 5
-     * @version $Id: install.php, v 2.1.0
+     * @version $Id: install.php, v 2.1.11
      */
 
     $error  = "";
