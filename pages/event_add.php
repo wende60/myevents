@@ -174,7 +174,7 @@
                 $myevents_title[$lang_key]      =  $sql->getValue('title');
                 $myevents_content[$lang_key]    =  $sql->getValue('content');
                 $myevents_local[$lang_key]      =  $sql->getValue('local');
-                $myevents_additional[$lang_key] =  $sql->getValue('addcontent');
+                $myevents_addcontent            =  $sql->getValue('addcontent');
 
                 $sql->next();
             }
