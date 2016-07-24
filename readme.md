@@ -29,6 +29,8 @@ Mit einem Modul kannst Du die Veranstaltungen für ein bestimmtes  Jahr ausgeben
 Weiter findest Du ein Modul, um die kommenden Veranstaltungen für die nächsten 1-6 Monate anzuzeigen.
 Dabei werden für eine Veranstaltung nur noch die Termine angezeigt, die noch nicht in der Vergangenheit liegen.
 
+Ein extra Feld kann genutzt werden, um die Events zu kategoriesieren oder Tags zu vergeben.
+
 Das Datepicker-Javascript  (myevents-es6.js) ist in ECMAScript 6 geschrieben, und mit babel (preset es2005) nach ECMAScript 5 transpiled, so dass die meisten halbwegs aktuellen Browser damit klarkommen sollten.
 Falls ältere Browser für das Backend zum Einsatz kommen sollte man ggf. bei Version 2.0.0 bleiben (Branch myEventsSimple)
 
