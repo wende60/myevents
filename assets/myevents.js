@@ -1,3 +1,9 @@
+/**
+ * Addon MyEvents
+ * @author  kgde@wendenburg.de
+ * @package redaxo 5
+ * @version $Id: myevent.js, v 2.1.0
+ */
 
 "use strict";
 
@@ -499,6 +505,8 @@ var myEventsDatepicker = {
         buttonNext.addEventListener('click', function (e) {
             _this3.dplNextMonth(id);
         }, false);
+        buttonBack.className = 'myEventsMonthBack';
+        buttonNext.className = 'myEventsMonthNext';
 
         // create myEventsDatepicker's day names bar
         var weekRowDayNames = document.createElement('tr');
