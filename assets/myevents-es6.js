@@ -494,7 +494,8 @@ var myEventsDatepicker =  {
 
         buttonBack.addEventListener('click', e => {this.dplPastMonth(id)}, false);
         buttonNext.addEventListener('click', e => {this.dplNextMonth(id)}, false);
-
+        buttonBack.className = 'myEventsMonthBack';
+        buttonNext.className = 'myEventsMonthNext';
 
         // create myEventsDatepicker's day names bar
         var weekRowDayNames =  document.createElement('tr');

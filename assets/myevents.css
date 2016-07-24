@@ -130,6 +130,11 @@
         background: none;
     }
 
+    .myevents-datepicker-wrapper th.myEventsMonthBack,
+    .myevents-datepicker-wrapper th.myEventsMonthNext {
+        cursor: pointer;
+    }
+
     .myevents-datepicker-wrapper .calendarIsWeekend {
         background: #ffffff;
     }

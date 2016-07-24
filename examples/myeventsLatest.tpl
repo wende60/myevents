@@ -171,6 +171,8 @@
                         'myeventsLocal'         =>  $sql->getValue('local'),
                         'myeventsContent'       =>  $sql->getValue('content'),
                         'myeventsDisplayTime'   =>  $sql->getValue('dpltime'),
+                        'myeventsAddContent'    =>  $sql->getValue('addcontent'),
+
                     );
                 }
 
@@ -224,6 +226,9 @@
                             <?php if ($myevent['myeventsLocal']) { ?>
                                 <p><?php echo $myevent['myeventsLocal'] ?></p>
                             <?php } ?>
+                            <?php if($myevent['myeventsAddContent']) { ?>
+                                <p>Kategorie <?php echo $myevent['myeventsAddContent'] ?></p>
+                            <?php }?>
                             <div class="myevents-content">
                                 <?php echo $textile ?>
                             </div>

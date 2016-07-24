@@ -13,12 +13,13 @@
     $complete           =  false;
 
     # prepare some request vars
-    $func               =  strip_tags(rex_request('func', 'string'));
-    $myevents_dates     =  strip_tags(rex_request('myevents_dates', 'string'));
-    $myevents_hour      =  (int)strip_tags(rex_request('myevents_hour', 'string'));
-    $myevents_min       =  (int)strip_tags(rex_request('myevents_min', 'string'));
-    $myevents_id        =  strip_tags(rex_request('myevents_id', 'string'));
-    $myevents_dpltime   =  strlen(rex_request('myevents_dpltime', 'string'))? 1 : 0;
+    $func                   =  strip_tags(rex_request('func', 'string'));
+    $myevents_dates         =  strip_tags(rex_request('myevents_dates', 'string'));
+    $myevents_hour          =  (int)strip_tags(rex_request('myevents_hour', 'string'));
+    $myevents_min           =  (int)strip_tags(rex_request('myevents_min', 'string'));
+    $myevents_id            =  strip_tags(rex_request('myevents_id', 'string'));
+    $myevents_dpltime       =  strlen(rex_request('myevents_dpltime', 'string'))? 1 : 0;
+    $myevents_addcontent    =  strip_tags(rex_request('myevents_addcontent', 'string'));
 
     # confirm update and available event-id... do sql-update
     $confirm_upd        =  (isset($_REQUEST['confirm_upd']) && $myevents_id)? true : false;
@@ -109,7 +110,7 @@
                         "title"         => array(0, $myevents_title[$langKey]),
                         "content"       => array(0, $myevents_content[$langKey]),
                         "local"         => array(0, $myevents_local[$langKey]),
-                        "addcontent"    => array(0, ""),
+                        "addcontent"    => array(0, $myevents_addcontent),
                     );
 
                     $sql_content =  rex_sql::factory();
@@ -255,6 +256,19 @@
                         </dd>
                     </dl>
                 </fieldset>
+                <fieldset>
+                    <div>
+                        <dl class="rex-form-group form-group">
+                            <dt>
+                                <label class="control-label">Kategorie</label>
+                            </dt>
+                            <dd>
+                                <input class="form-control" type="text" name="myevents_addcontent" value="<?php echo $myevents_addcontent?>" />
+                                <p class="help-block rex-note">Optionales extra Feld für Kategorien, Tags etc.</p>
+                            </dd>
+                        </dl>
+                    </div>
+                <fieldset>
                 <?php foreach(rex_clang::getAll() as $langKey => $langObj) { ?>
                     <fieldset class="myevents-language-wrapper">
                         <dl class="rex-form-group form-group">
@@ -299,7 +313,7 @@
                 </div>
                 <div class="rex-form-panel-footer">
                     <div class="btn-toolbar">
-                        <p class="rex-form-aligned"><br><br><a href="<?php echo rex_url::currentBackendPage()?>">Zurück zu MyEvents neuen Event anlegen</a></p>
+                        <p class="rex-form-aligned"><br><br><a href="<?php echo rex_url::currentBackendPage()?>">Zurück zu &quot;MyEvents Neuer Event&quot;</a></p>
                     </div>
                 </div>
             </footer>

@@ -15,7 +15,7 @@
 
     if (rex_addon::get('textile')->isAvailable()) {
 
-        $myeventsCurrentYear    =  date("Y");
+        $myeventsCurrentYear    =  (int)date("Y");
         $myeventsSelectedYear   =  (int)"REX_VALUE[1]";
         if (!$myeventsSelectedYear) {
             $myeventsSelectedYear =  $myeventsCurrentYear;
@@ -111,7 +111,7 @@
                     }
 
                     # this event date is an other year than the selected one, ignore
-                    $myeventsYear =  date("Y", $time);
+                    $myeventsYear =  (int)date("Y", $time);
                     if ($myeventsYear !== $myeventsSelectedYear) {
                         continue;
                     }
@@ -149,6 +149,7 @@
                     'myeventsLocal'         =>  $sql->getValue('local'),
                     'myeventsContent'       =>  $sql->getValue('content'),
                     'myeventsDisplayTime'   =>  $sql->getValue('dpltime'),
+                    'myeventsAddContent'    =>  $sql->getValue('addcontent'),
                 );
                 $sql->next();
             }
@@ -186,6 +187,9 @@
                             <h3><?php echo $myevent['myeventsTitle']?></h3>
                             <?php if($myevent['myeventsLocal']) { ?>
                                 <p><?php echo $myevent['myeventsLocal'] ?></p>
+                            <?php }?>
+                            <?php if($myevent['myeventsAddContent']) { ?>
+                                <p>Kategorie <?php echo $myevent['myeventsAddContent'] ?></p>
                             <?php }?>
                             <div class="myevents-content">
                                 <?php echo $textile ?>
