@@ -15,7 +15,7 @@
          * @param   {string} tablename
          * @return  {string} query
          */
-        public function createInsertQuery($in, $table) {
+        public static function createInsertQuery($in, $table) {
             $str_fields =  "";
             $str_vals   =  "";
             foreach ($in as $field => $val) {
@@ -34,7 +34,7 @@
          * @param   {string} tablename
          * @return  {string} query
          */
-        public function createUpdateQuery($in, $table, $where) {
+        public static function createUpdateQuery($in, $table, $where) {
             $str_upd =  "";
             foreach ($in as $field => $val) {
                 if($val[0] === 9 || $val[0] === 2) {
