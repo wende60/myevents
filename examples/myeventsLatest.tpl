@@ -212,9 +212,7 @@
                             $textile = str_replace("<br />","",$textile);
                             $textile = preg_replace("#\r#","",$textile);
                             $textile = preg_replace("#\n\s*\n\s*#","\n\n",$textile);
-                            $textile = preg_replace("#\|\s+\n#","|\n",$textile); // no whitespaces after tailing "|"
-							echo markitup::parseOutput ('textile', $textile);
-                            
+                            $textile = preg_replace("#\|\s+\n#","|\n",$textile); // no whitespaces after tailing "|"                           
                     ?>
                         <li class="myevents-wrapper">
                             <p class="myevent-dates">
@@ -231,8 +229,8 @@
                                 <p>Kategorie <?php echo $myevent['myeventsAddContent'] ?></p>
                             <?php }?>
                             <div class="myevents-content">
-                                <?php echo $textile ?>
-                            </div>
+                                <?php echo markitup::parseOutput ('textile', $textile); ?>
+                            </div>			    
                         </li>
                     <?php }?>
                 </ul>
