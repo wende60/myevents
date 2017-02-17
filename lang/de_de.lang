@@ -1,1 +1,19 @@
 
+myevents_title          =  MyEvents
+
+myevents_event_edit     =  Event bearbeiten
+myevents_event_save     =  Einstellungen speichern
+myevents_event_saved    =  Einstellungen wurden gespeichert!
+
+myevents_jan            =  Januar
+myevents_feb            =  Februar
+myevents_mar            =  März
+myevents_apr            =  April
+myevents_may            =  Mai
+myevents_jun            =  Juni
+myevents_jul            =  Juli
+myevents_aug            =  August
+myevents_sep            =  September
+myevents_oct            =  Oktober
+myevents_nov            =  November
+myevents_dec            =  Dezember
