@@ -13,7 +13,7 @@
      * @package redaxo 5
      */
 
-    if (rex_addon::get('textile')->isAvailable()) {
+    if (rex_addon::get('markitup')->isAvailable()) {
 
         $myeventsCurrentYear    =  (int)date("Y");
         $myeventsSelectedYear   =  (int)"REX_VALUE[1]";
@@ -40,7 +40,7 @@
     </div>
 <?php
     } else {
-        echo rex_view::warning('Dieses Modul benötigt das "textile" Addon!');
+        echo rex_view::warning('Dieses Modul benötigt das "markitup" Addon!');
     }
 ?>
 
@@ -49,7 +49,7 @@
 <?php
 
     $languageId =  rex_clang::getCurrentId();
-    if (rex_addon::get('textile')->isAvailable()) {
+    if (rex_addon::get('markitup')->isAvailable()) {
 
         $myeventsList           =  array();
         $tableDates             =  rex_addon::get('myevents')->getProperty('table_dates');
@@ -178,7 +178,8 @@
                             $textile = str_replace("<br />","",$textile);
                             $textile = preg_replace("#\r#","",$textile);
                             $textile = preg_replace("#\n\s*\n\s*#","\n\n",$textile);
-                            $textile = rex_textile::parse($textile);
+							echo markitup::parseOutput ('textile', $textile);
+                           
                     ?>
                         <li class="myevents-wrapper">
                             <p class="myevent-dates">
@@ -206,6 +207,6 @@
 
         # no textile
     } else {
-        echo rex_view::warning('Dieses Modul benötigt das "textile" Addon!');
+        echo rex_view::warning('Dieses Modul benötigt das "markitup" Addon!');
     }
 ?>

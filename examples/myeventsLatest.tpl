@@ -13,14 +13,14 @@
      * @package redaxo 5
      */
 
-    if (rex_addon::get('textile')->isAvailable()) {
+    if (rex_addon::get('markitup')->isAvailable()) {
 ?>
 
     <h4>Aktuelle Termine anzeigen</h4>
 
     <label>Anzahl Veranstaltungen:</label>
     <div class="entry-wrapper">
-        <select class="form-control" name="REX_INPUT_VALUE[1]">
+        <select class="form-control markitupEditor-textile_full" name="REX_INPUT_VALUE[1]">
             <option value="">Alle Veranstaltungen</option>
             <?php
                 for($i = 1; $i < 11; $i ++):
@@ -36,7 +36,7 @@
 
     <label>Zeitraum in Monaten:</label>
     <div class="entry-wrapper">
-        <select class="form-control" name="REX_INPUT_VALUE[2]">
+        <select class="form-control markitupEditor-textile_full" name="REX_INPUT_VALUE[2]">
             <?php
                 for($j = 1; $j < 7; $j ++):
                     $selected =  "";
@@ -51,7 +51,7 @@
 
 <?php
     } else {
-        echo rex_view::warning('Dieses Modul benötigt das "textile" Addon!');
+        echo rex_view::warning('Dieses Modul benötigt das "markitup" Addon!');
     }
 ?>
 
@@ -60,7 +60,7 @@
 <?php
 
     $languageId =  rex_clang::getCurrentId();
-    if (rex_addon::get('textile')->isAvailable()) {
+    if (rex_addon::get('markitup')->isAvailable()) {
 
         $myeventsList       =  array();
         $tableDates         =  rex_addon::get('myevents')->getProperty('table_dates');
@@ -213,7 +213,8 @@
                             $textile = preg_replace("#\r#","",$textile);
                             $textile = preg_replace("#\n\s*\n\s*#","\n\n",$textile);
                             $textile = preg_replace("#\|\s+\n#","|\n",$textile); // no whitespaces after tailing "|"
-                            $textile = rex_textile::parse($textile);
+							echo markitup::parseOutput ('textile', $textile);
+                            
                     ?>
                         <li class="myevents-wrapper">
                             <p class="myevent-dates">
@@ -244,6 +245,6 @@
 
         # no textile
     } else {
-        echo rex_view::warning('Dieses Modul benötigt das "textile" Addon!');
+        echo rex_view::warning('Dieses Modul benötigt das "markitup" Addon!');
     }
 ?>
