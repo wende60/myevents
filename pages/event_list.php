@@ -123,8 +123,8 @@
 <div>
     <?php
         # we need textile to format descriptions
-        if ( !rex_addon::get('textile')->isAvailable() ) {
-            echo rex_view::warning('Dieses Modul benötigt das "textile" Addon!');
+        if ( !rex_addon::get('markitup')->isAvailable() ) {
+            echo rex_view::warning('Dieses Modul benötigt das "markitup" Addon!');
         }
         # errors or confirm
         if (count($myevents_error)) {
