@@ -169,7 +169,10 @@
     </form>
     <div class="myevents-list-wrapper">
         <ul>
-            <?php foreach($myevents_list as $myevents_id => $myevents_data): ?>
+            <?php
+                if (isset($myevents_list)) {
+                    foreach($myevents_list as $myevents_id => $myevents_data) {
+            ?>
                 <li>
                     <h5>
                         Event-ID <?php echo $myevents_id?>
@@ -190,7 +193,10 @@
                         </a>
                     </p>
                 </li>
-            <?php endforeach?>
+            <?php
+                    }
+                }
+            ?>
         </ul>
     </div>
 </div>
