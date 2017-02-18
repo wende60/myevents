@@ -294,7 +294,7 @@
                             </dt>
                             <dd>
                                 <textarea class="form-control" name="myevents_content_<?php echo $langKey?>" rows="6"><?php echo stripslashes($myevents_content[$langKey])?></textarea>
-                                <p class="help-block rex-note">Textile Formatierung möglich</p>
+                                <p class="help-block rex-note">Markitup Formatierung möglich</p>
                             </dd>
                         </dl>
                     </fieldset>
