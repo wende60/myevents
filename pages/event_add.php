@@ -188,9 +188,9 @@
 
 <div>
     <?php
-        # we need textile to format descriptions
-        if (!rex_addon::get('textile')->isAvailable()) {
-            echo rex_view::warning('Dieses Modul benötigt das "textile" Addon!');
+        # we need markitup to format descriptions
+        if (!rex_addon::get('markitup')->isAvailable()) {
+            echo rex_view::warning('Dieses Modul benötigt das "markitup" Addon!');
         }
         # errors or confirm
         if ($func && !count($myevents_error)) {
@@ -323,6 +323,6 @@
 <?php
 
     // displays help options, mus be activated (user settings)
-    rex_textile::showHelpOverview();
+    // rex_textile::showHelpOverview();
 
 ?>

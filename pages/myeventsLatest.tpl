@@ -20,7 +20,7 @@
 
     <label>Anzahl Veranstaltungen:</label>
     <div class="entry-wrapper">
-        <select class="form-control markitupEditor-textile_full" name="REX_INPUT_VALUE[1]">
+        <select class="form-control" name="REX_INPUT_VALUE[1]">
             <option value="">Alle Veranstaltungen</option>
             <?php
                 for($i = 1; $i < 11; $i ++):
@@ -36,7 +36,7 @@
 
     <label>Zeitraum in Monaten:</label>
     <div class="entry-wrapper">
-        <select class="form-control markitupEditor-textile_full" name="REX_INPUT_VALUE[2]">
+        <select class="form-control" name="REX_INPUT_VALUE[2]">
             <?php
                 for($j = 1; $j < 7; $j ++):
                     $selected =  "";
@@ -212,7 +212,9 @@
                             $textile = str_replace("<br />","",$textile);
                             $textile = preg_replace("#\r#","",$textile);
                             $textile = preg_replace("#\n\s*\n\s*#","\n\n",$textile);
-                            $textile = preg_replace("#\|\s+\n#","|\n",$textile); // no whitespaces after tailing "|"                           
+                            $textile = preg_replace("#\|\s+\n#","|\n",$textile); // no whitespaces after tailing "|"
+							echo markitup::parseOutput ('textile', $textile);
+                            
                     ?>
                         <li class="myevents-wrapper">
                             <p class="myevent-dates">
@@ -229,8 +231,8 @@
                                 <p>Kategorie <?php echo $myevent['myeventsAddContent'] ?></p>
                             <?php }?>
                             <div class="myevents-content">
-                                <?php echo markitup::parseOutput ('textile', $textile); ?>
-                            </div>			    
+                                <?php echo $textile ?>
+                            </div>
                         </li>
                     <?php }?>
                 </ul>
@@ -241,7 +243,7 @@
         # end output
         # --------------------------------
 
-        # no textile
+        # no markitup
     } else {
         echo rex_view::warning('Dieses Modul benötigt das "markitup" Addon!');
     }

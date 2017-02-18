@@ -34,3 +34,5 @@ Ein extra Feld kann genutzt werden, um die Events zu kategoriesieren oder Tags z
 Das Datepicker-Javascript  (myevents-es6.js) ist in ECMAScript 6 geschrieben, und mit babel (preset es2005) nach ECMAScript 5 transpiled, so dass die meisten halbwegs aktuellen Browser damit klarkommen sollten.
 Falls ältere Browser für das Backend zum Einsatz kommen sollte man ggf. bei Version 2.0.0 bleiben (Branch myEventsSimple)
 
+----------------------------------------------------
+Edit 27.2.17: Aus Kompatibilitätsgründen mit Rex 5.2/3 textile durch markitup ersetzt (beiden dürfen auf einem REX 5.2/3 System nicht parallel aktiv sein - REX 5.3 prüft das erstmalig korrekt 

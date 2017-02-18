@@ -40,7 +40,7 @@
     </div>
 <?php
     } else {
-        echo rex_view::warning('Dieses Modul benÃ¶tigt das "markitup" Addon!');
+        echo rex_view::warning('Dieses Modul benötigt das "markitup" Addon!');
     }
 ?>
 
@@ -63,7 +63,7 @@
 
         # display month-names as string
         $monthNames =  array(
-            1 => array('Januar','Februar','MÃ¤rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember',),
+            1 => array('Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember',),
             2 => array('January','February','March','April','May','June','July','August','September','October','November','December',),
         );
         $timeFormat =  array(
@@ -178,7 +178,9 @@
                             $textile = str_replace("<br />","",$textile);
                             $textile = preg_replace("#\r#","",$textile);
                             $textile = preg_replace("#\n\s*\n\s*#","\n\n",$textile);
-                        ?>
+							echo markitup::parseOutput ('textile', $textile);
+                           
+                    ?>
                         <li class="myevents-wrapper">
                             <p class="myevent-dates">
                                 <?php echo $myevent['myeventsDates']?><?php if($myevent['myeventsDisplayTime']) {?>, <?php echo $myevent['myeventsTimeString']?><?php }?>
@@ -191,7 +193,7 @@
                                 <p>Kategorie <?php echo $myevent['myeventsAddContent'] ?></p>
                             <?php }?>
                             <div class="myevents-content">
-                                <?php echo markitup::parseOutput ('textile', $textile); ?>
+                                <?php echo $textile ?>
                             </div>
                         </li>
                     <?php }?>
@@ -203,8 +205,8 @@
         # end output
         # --------------------------------
 
-        # no textile
+        # no markitup
     } else {
-        echo rex_view::warning('Dieses Modul benÃ¶tigt das "markitup" Addon!');
+        echo rex_view::warning('Dieses Modul benötigt das "markitup" Addon!');
     }
 ?>
