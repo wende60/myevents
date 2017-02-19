@@ -46,4 +46,19 @@
             }
             return "update `" . $table . "` set " . $str_upd . " where " . $where;
         }
+
+        public static function returnMarkitup($mode, $inputValue) {
+            # allow html, chars must be decoded
+            # replace br-tags
+            # replace leading whitespace after double line-break
+            # textile
+            # wrap in div and p
+            $inputValue = htmlspecialchars_decode($inputValue);
+            $inputValue = str_replace("<br />","",$inputValue);
+            $inputValue = preg_replace("#\r#","",$inputValue);
+            $inputValue = preg_replace("#\n\s*\n\s*#","\n\n",$inputValue);
+            $inputValue = preg_replace("#\| +\n#","|\n",$inputValue); // no empty spaces after tailing "|"
+            return (rex_addon::get('markitup')->isAvailable()) ?
+                markitup::parseOutput ($mode, $inputValue) : $inputValue;
+        }
     }

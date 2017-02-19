@@ -293,8 +293,8 @@
                                 <label class="control-label">Beschreibung <?php echo $langObj->getValue('name')?></label>
                             </dt>
                             <dd>
-                                <textarea class="form-control" name="myevents_content_<?php echo $langKey?>" rows="6"><?php echo stripslashes($myevents_content[$langKey])?></textarea>
-                                <p class="help-block rex-note">Markitup Formatierung möglich</p>
+                                <textarea class="form-control markitupEditor-textile_full" name="myevents_content_<?php echo $langKey?>" rows="6"><?php echo stripslashes($myevents_content[$langKey])?></textarea>
+                                <p class="help-block rex-note">Markitup Textile Formatierung möglich</p>
                             </dd>
                         </dl>
                     </fieldset>
@@ -320,9 +320,3 @@
         </div>
     </form>
 </div>
-<?php
-
-    // displays help options, mus be activated (user settings)
-    // rex_textile::showHelpOverview();
-
-?>
