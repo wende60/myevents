@@ -20,7 +20,7 @@
 
     <label>Anzahl Veranstaltungen:</label>
     <div class="entry-wrapper">
-        <select class="form-control markitupEditor-textile_full" name="REX_INPUT_VALUE[1]">
+        <select class="form-control" name="REX_INPUT_VALUE[1]">
             <option value="">Alle Veranstaltungen</option>
             <?php
                 for($i = 1; $i < 11; $i ++):
@@ -36,7 +36,7 @@
 
     <label>Zeitraum in Monaten:</label>
     <div class="entry-wrapper">
-        <select class="form-control markitupEditor-textile_full" name="REX_INPUT_VALUE[2]">
+        <select class="form-control" name="REX_INPUT_VALUE[2]">
             <?php
                 for($j = 1; $j < 7; $j ++):
                     $selected =  "";
