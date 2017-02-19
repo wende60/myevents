@@ -320,9 +320,3 @@
         </div>
     </form>
 </div>
-<?php
-
-    // displays help options, mus be activated (user settings)
-    // rex_textile::showHelpOverview();
-
-?>

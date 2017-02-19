@@ -166,19 +166,7 @@
         <div class="myevents-container">
             <?php if($myevents_list) { ?>
                 <ul class="myevents-list">
-                    <?php
-                        foreach ($myevents_list as $myevent) {
-
-                            # allow html, chars must be decoded
-                            # replace br-tags
-                            # replace "\r"
-                            # replace leading whitespace after double line-break
-                            #
-                            $textile = htmlspecialchars_decode($myevent['myeventsContent']);
-                            $textile = str_replace("<br />","",$textile);
-                            $textile = preg_replace("#\r#","",$textile);
-                            $textile = preg_replace("#\n\s*\n\s*#","\n\n",$textile);
-                        ?>
+                    <?php foreach ($myevents_list as $myevent) { ?>
                         <li class="myevents-wrapper">
                             <p class="myevent-dates">
                                 <?php echo $myevent['myeventsDates']?><?php if($myevent['myeventsDisplayTime']) {?>, <?php echo $myevent['myeventsTimeString']?><?php }?>
@@ -191,7 +179,7 @@
                                 <p>Kategorie <?php echo $myevent['myeventsAddContent'] ?></p>
                             <?php }?>
                             <div class="myevents-content">
-                                <?php echo markitup::parseOutput ('textile', $textile); ?>
+                                <?php echo myEvents::returnMarkitup('textile', $myevent['myeventsContent']); ?>
                             </div>
                         </li>
                     <?php }?>
