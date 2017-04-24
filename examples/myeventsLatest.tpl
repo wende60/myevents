@@ -98,7 +98,7 @@
         $sql =  rex_sql::factory();
         $sql->setQuery( "select * from `" . $tableDates . "` " .
                 "a left join `" . $tableContent . "` b on a.id = b.event_id " .
-                "where (a.enddate > \"" . $myeventsStartDate . "\" and a.startdate < \"" . $myeventsEndDate . "\") " .
+                "where (a.enddate >= \"" . $myeventsStartDate . "\" and a.startdate <= \"" . $myeventsEndDate . "\") " .
                 "and b.clang = " . $languageId . " order by a.startdate");
 
         if ($sql->getRows() > 0 ) {
