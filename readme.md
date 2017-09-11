@@ -24,7 +24,7 @@ Orchestra e Coro del Teatro di San Carlo
 
 
 Die Veranstaltungen können in beliebiger Form aus der Datenbank geholt werden.
-Im Order &quot;examples&quot; findest Du dafür 2 Beispielmodule, die mehrsprachig für deutsch und englisch angelegt sind.
+Im Order [examples](https://github.com/wende60/myevents/tree/master/examples) findest Du dafür 2 Beispielmodule, die mehrsprachig für deutsch und englisch angelegt sind.
 Mit einem Modul kannst Du die Veranstaltungen für ein bestimmtes  Jahr ausgeben.
 Weiter findest Du ein Modul, um die kommenden Veranstaltungen für die nächsten 1-6 Monate anzuzeigen.
 Dabei werden für eine Veranstaltung nur noch die Termine angezeigt, die noch nicht in der Vergangenheit liegen.
