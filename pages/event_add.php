@@ -17,7 +17,7 @@
     $myevents_dates         =  strip_tags(rex_request('myevents_dates', 'string'));
     $myevents_hour          =  (int)strip_tags(rex_request('myevents_hour', 'string'));
     $myevents_min           =  (int)strip_tags(rex_request('myevents_min', 'string'));
-    $myevents_id            =  strip_tags(rex_request('myevents_id', 'string'));
+    $myevents_id            =  (int)strip_tags(rex_request('myevents_id', 'string'));
     $myevents_dpltime       =  strlen(rex_request('myevents_dpltime', 'string'))? 1 : 0;
     $myevents_addcontent    =  strip_tags(rex_request('myevents_addcontent', 'string'));
 
