@@ -27,7 +27,7 @@
     $month_names        =  $this->getProperty('month_names');
 
     if ($func == "do_delete") {
-        $myevents_id    =  htmlspecialchars(rex_request('myevents_id', 'string'));
+        $myevents_id    =  (int)htmlspecialchars(rex_request('myevents_id', 'string'));
         if ($myevents_id && is_numeric($myevents_id)) {
             $sql_dates  =  rex_sql::factory();
             //echo "delete `" . $table_dates . "`,`" . $table_content . "` from `" . $table_dates . "`, `" . $table_content . "` where `" . $table_dates . ".id` = `" . $table_content . ".event_id` and `" . $table_dates . ".id` = " . $myevents_id;
